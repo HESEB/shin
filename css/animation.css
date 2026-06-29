@@ -1,0 +1,4 @@
+.shin-float{position:absolute;z-index:9999;font-size:30px;font-weight:1000;color:#fff;text-shadow:0 4px 0 #4b2d1c;pointer-events:none;animation:shinFloat .75s ease forwards}
+@keyframes shinFloat{0%{opacity:0;transform:translate(-50%,-10%) scale(.6)}35%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
+.shin-shake{animation:shinShake .22s linear 2}
+@keyframes shinShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
