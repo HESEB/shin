@@ -1,1 +1,105 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>도축정형</title><link rel="stylesheet" href="../../css/common.css"><style>.area{height:60vh;position:relative;overflow:hidden;background:linear-gradient(#51301f,#21140e);border:5px solid #4b2d1c;border-radius:24px}.meat{position:absolute;font-size:42px;filter:drop-shadow(0 4px #0008)}.hud{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}.box{background:#fff;border:3px solid #4b2d1c;border-radius:14px;padding:8px;text-align:center;font-weight:900}</style></head><body><div class="shin-app"><header class="shin-topbar"><button class="shin-icon" onclick="location.href='../../index.html'">🏠</button><div class="shin-currency">3. 도축정형</div><div class="shin-currency">Fruit Slice</div><button class="shin-icon" onclick="start()">▶</button></header><section class="shin-panel"><div class="hud"><div class="box">정형 <span id="score">0</span>/25</div><div class="box">콤보 <span id="combo">0</span></div><div class="box">시간 <span id="time">30</span></div></div><div class="area" id="area"></div><p class="center strong">날아오는 고기를 터치/클릭해서 정형하세요.</p></section></div><script src="../../js/save.js"></script><script src="../../js/result.js"></script><script>var sc=0,co=0,t=30,timer=null,spawner=null;function start(){sc=0;co=0;t=30;area.innerHTML='';draw();clearInterval(timer);clearInterval(spawner);timer=setInterval(function(){t--;draw();if(t<=0)finish()},1000);spawner=setInterval(spawn,550)}function draw(){score.textContent=sc;combo.textContent=co;time.textContent=t}function spawn(){var e=document.createElement('div');e.className='meat';e.textContent=['🥩','🍖','🥓'][Math.random()*3|0];var x=Math.random()*85,y=15+Math.random()*70;e.style.left=x+'%';e.style.top=y+'%';e.onclick=function(){sc++;co++;e.remove();draw();if(sc>=25)finish()};area.appendChild(e);setTimeout(function(){if(e.parentNode){e.remove();co=0;draw()}},1600)}function finish(){clearInterval(timer);clearInterval(spawner);ShinResult.complete('butcher',sc>=25&&co>=8?3:sc>=20?2:1)}start();</script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>도축정형 MVP 복원 v1.0.3</title>
+<link rel="stylesheet" href="../../css/common.css">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+body{margin:0;background:#111;font-family:Arial,'Noto Sans KR',sans-serif;overflow:hidden;color:#3b2413}
+#game{max-width:480px;height:100dvh;margin:0 auto;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 20%,#fff5d7 0,#ffd991 36%,#f7a74d 100%)}
+#game.theme-pig{background:radial-gradient(circle at 50% 20%,#ffe4ef 0,#ff9ac2 42%,#e8758e 100%)}
+#game.theme-cow{background:radial-gradient(circle at 50% 20%,#f2ffe5 0,#91d271 42%,#518c48 100%)}
+#game.theme-boss{background:radial-gradient(circle at 50% 20%,#b18cff 0,#5b2fb8 42%,#1a072f 100%);color:#fff}
+#arena{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:crosshair}
+.top{position:absolute;left:10px;right:10px;top:8px;z-index:10;display:grid;gap:7px;pointer-events:none}
+.title{font-size:24px;font-weight:1000;text-align:center;color:#fff;text-shadow:0 4px 0 rgba(0,0,0,.35),0 0 16px rgba(0,0,0,.35);letter-spacing:-1px}
+.panel,.order{background:rgba(255,248,238,.94);border:4px solid #4b2d1c;border-radius:22px;padding:8px 10px;box-shadow:0 5px 0 rgba(0,0,0,.2);color:#3a2418;pointer-events:auto}
+select{width:100%;height:38px;border:3px solid #4b2d1c;border-radius:14px;background:#fff;font-size:16px;font-weight:1000;color:#3a2418;margin-bottom:7px;padding:0 8px}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pill{background:#fff;border:3px solid #4b2d1c;border-radius:15px;padding:5px 4px;font-weight:1000;box-shadow:0 3px 0 rgba(0,0,0,.14);font-size:12px;text-align:center;white-space:nowrap}
+.pill b{display:block;font-size:18px}
+.orderTitle{font-size:13px;font-weight:1000;color:#8b3f19;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.orderItems{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-weight:1000;border-radius:14px;border:3px solid #4b2d1c;background:#fff;padding:5px 7px;box-shadow:0 3px 0 rgba(0,0,0,.14);font-size:13px}.tag.done{background:#d9ffd5;color:#167a26;text-decoration:line-through;transform:scale(.95)}
+.meat{position:absolute;width:74px;height:58px;border:4px solid #4b2d1c;border-radius:40% 45% 38% 43%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:1000;box-shadow:0 6px 0 rgba(0,0,0,.2);transform-origin:center;will-change:transform;z-index:3}
+.chickenA{background:linear-gradient(#fff6e8,#ffd1b0)}.chickenB{background:linear-gradient(#ffcf8a,#f38637);border-radius:50% 45% 55% 35%}.chickenC{background:linear-gradient(#ffe1ef,#ff99c4);width:82px;height:46px}
+.pigA{background:linear-gradient(#ffd4df,#ff7fa6)}.pigB{background:linear-gradient(#ffc1aa,#f06e5a)}.pigC{background:linear-gradient(#ffe0bd,#c87543)}
+.cowA{background:linear-gradient(#ffd7bd,#b75b3e)}.cowB{background:linear-gradient(#ffe9c8,#d98954)}.cowC{background:linear-gradient(#fff4da,#cc7a44)}.cowD{background:linear-gradient(#ffe0e0,#b94b4b)}
+.gold{background:linear-gradient(#fff6a8,#ffc400);box-shadow:0 0 18px #fff35a,0 6px 0 rgba(0,0,0,.2)}.bad{background:linear-gradient(#a8d76c,#5aa832);color:#213f14}.bomb{background:linear-gradient(#555,#171717);color:#fff;border-radius:50%;width:64px;height:64px}
+.sliceLine{position:absolute;height:8px;background:#fff;border-radius:999px;box-shadow:0 0 18px #fff,0 0 26px #ffe45c;transform-origin:left center;z-index:20;pointer-events:none}.floatText{position:absolute;z-index:30;font-weight:1000;font-size:28px;text-shadow:0 3px 0 rgba(0,0,0,.25);animation:float .7s ease-out forwards;pointer-events:none}
+@keyframes float{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-55px) scale(1.25)}}
+.bottom{position:absolute;left:14px;right:14px;bottom:16px;z-index:10;display:grid;gap:8px}.barWrap{height:24px;background:#4b2d1c;border-radius:999px;padding:4px;box-shadow:0 4px 0 rgba(0,0,0,.16)}.bar{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#ffd54a,#ff7a2f);transition:width .15s}.hint{text-align:center;color:#fff;font-weight:1000;text-shadow:0 2px #000;font-size:13px}
+.centerOverlay{position:absolute;inset:0;z-index:50;background:rgba(55,28,8,.55);display:flex;align-items:center;justify-content:center;text-align:center;padding:28px}.card{background:#fff8ee;border:5px solid #4b2d1c;border-radius:28px;padding:24px 18px;box-shadow:0 9px 0 rgba(0,0,0,.25);max-width:360px;width:100%;color:#3a2418}h1{margin:0 0 8px;font-size:31px;line-height:1.05}.sub{font-weight:800;color:#8b3f19;margin-bottom:14px;line-height:1.45}.btn{display:block;width:100%;border:4px solid #4b2d1c;border-radius:20px;background:linear-gradient(#ffcf62,#ff8a2d);padding:14px;font-size:21px;font-weight:1000;color:#3a2418;box-shadow:0 6px 0 rgba(0,0,0,.25);cursor:pointer}.btn:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.feverText{position:absolute;inset:0;display:none;align-items:center;justify-content:center;z-index:40;font-size:54px;font-weight:1000;color:#fff;text-shadow:0 5px 0 #a64d00,0 0 24px #ffd54a;pointer-events:none;animation:pulse .35s infinite alternate}.fever #feverText{display:flex}.fever{filter:saturate(1.22)}@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.08)}}.shake{animation:shake .22s linear 2}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}.small{font-size:12px;color:#7b5037;font-weight:800;margin-top:10px;line-height:1.4}.stars{font-size:46px;color:#ffca28;text-shadow:0 4px 0 #8b5a00}
+</style>
+</head>
+<body>
+<div id="game" class="theme-chicken">
+  <div id="arena"></div>
+  <div class="top">
+    <div class="title" id="title">🐔 계육왕국 - 도축정형</div>
+    <div class="panel">
+      <select id="stage">
+        <option value="chicken">🐔 계육왕국</option>
+        <option value="pig">🐷 돈육왕국</option>
+        <option value="cow">🐮 우육왕국</option>
+        <option value="boss">👹 구매대전쟁</option>
+      </select>
+      <div class="hud">
+        <div class="pill">목표<b id="goal">20</b></div><div class="pill">완료<b id="done">0</b></div><div class="pill">로스<b id="miss">0</b></div>
+        <div class="pill">콤보<b id="combo">0</b></div><div class="pill">점수<b id="score">0</b></div><div class="pill">난이도<b id="level">쉬움</b></div>
+      </div>
+    </div>
+    <div class="order"><div class="orderTitle">📋 주문서: 필요한 것만 스와이프!</div><div id="orderItems" class="orderItems"></div></div>
+  </div>
+  <div id="feverText" class="feverText">FEVER!</div>
+  <div class="bottom"><div class="barWrap"><div id="feverBar" class="bar"></div></div><div class="hint">손가락/마우스로 빠르게 베면 한 번에 여러 개 정형됩니다</div></div>
+  <div id="overlay" class="centerOverlay"><div class="card"><h1>도축정형<br>정육의 달인</h1><div class="sub">MVP 스와이프 엔진 복원판<br>주문서에 있는 부위만 Fruit Ninja처럼 베세요.</div><button id="startBtn" class="btn">게임 시작</button><div class="small">모바일: 손가락 스와이프 / PC: 마우스 드래그</div></div></div>
+</div>
+<script src="../../js/save.js"></script>
+<script src="../../js/result.js"></script>
+<script>
+(() => {
+const game=document.getElementById('game'), arena=document.getElementById('arena'), overlay=document.getElementById('overlay'), startBtn=document.getElementById('startBtn');
+const scoreEl=document.getElementById('score'), comboEl=document.getElementById('combo'), missEl=document.getElementById('miss'), doneEl=document.getElementById('done'), goalEl=document.getElementById('goal'), levelEl=document.getElementById('level'), feverBar=document.getElementById('feverBar'), orderItemsEl=document.getElementById('orderItems'), stageSel=document.getElementById('stage'), titleEl=document.getElementById('title');
+const CONFIG={
+ chicken:{theme:'theme-chicken',title:'🐔 계육왕국 - 도축정형',level:'쉬움',goal:20,spawn:720,speed:.95,orders:['chickenA','chickenB'],types:['chickenA','chickenB','chickenC','gold','bad'],max:9},
+ pig:{theme:'theme-pig',title:'🐷 돈육왕국 - 도축정형',level:'보통',goal:24,spawn:620,speed:1.08,orders:['pigA','pigB','pigC'],types:['pigA','pigB','pigC','gold','bad','bomb'],max:10},
+ cow:{theme:'theme-cow',title:'🐮 우육왕국 - 도축정형',level:'어려움',goal:28,spawn:540,speed:1.22,orders:['cowA','cowB','cowC','cowD'],types:['cowA','cowB','cowC','cowD','gold','bad','bomb'],max:11},
+ boss:{theme:'theme-boss',title:'👹 구매대전쟁 - 도축정형',level:'최종',goal:34,spawn:450,speed:1.42,orders:['chickenA','pigA','cowA','cowB','cowD'],types:['chickenA','chickenB','pigA','pigB','cowA','cowB','cowC','cowD','gold','bad','bomb'],max:13}
+};
+const TYPES={
+ chickenA:{label:'닭가슴',icon:'🍗',cls:'chickenA',points:100},chickenB:{label:'닭다리',icon:'🍖',cls:'chickenB',points:120},chickenC:{label:'닭안심',icon:'🥩',cls:'chickenC',points:130},
+ pigA:{label:'돈후지',icon:'🥓',cls:'pigA',points:130},pigB:{label:'돈등심',icon:'🍖',cls:'pigB',points:140},pigC:{label:'삼겹',icon:'🥩',cls:'pigC',points:150},
+ cowA:{label:'한우정육',icon:'🥩',cls:'cowA',points:150},cowB:{label:'우갈비',icon:'🍖',cls:'cowB',points:160},cowC:{label:'우둔',icon:'🥓',cls:'cowC',points:150},cowD:{label:'특수부위',icon:'🍖',cls:'cowD',points:180},
+ gold:{label:'황금부위',icon:'✨',cls:'gold',points:420,special:true},bad:{label:'로스부위',icon:'☠️',cls:'bad',points:-180,bad:true},bomb:{label:'폭탄',icon:'💣',cls:'bomb',bomb:true}
+};
+let cfg, running=false, meats=[], score=0, combo=0, maxCombo=0, miss=0, done=0, fever=0, last=0, spawnAcc=0, pointerActive=false, trail=[], hitStreakId=0;
+function setStage(){cfg=CONFIG[stageSel.value];game.className=cfg.theme;titleEl.textContent=cfg.title;goalEl.textContent=cfg.goal;levelEl.textContent=cfg.level;renderOrders();}
+stageSel.onchange=()=>{setStage();if(running)startGame();}; setStage();
+function renderOrders(){orderItemsEl.innerHTML='';cfg.orders.forEach(k=>{const t=TYPES[k];const el=document.createElement('div');el.className='tag';el.id='order-'+k;el.textContent=t.icon+' '+t.label;orderItemsEl.appendChild(el);});}
+function reset(){meats.forEach(m=>m.el.remove());meats=[];score=0;combo=0;maxCombo=0;miss=0;done=0;fever=0;last=0;spawnAcc=0;trail=[];updateHud();renderOrders();}
+function startGame(){reset();running=true;overlay.style.display='none';requestAnimationFrame(loop);}
+startBtn.onclick=startGame;
+function updateHud(){scoreEl.textContent=score;comboEl.textContent=combo;missEl.textContent=miss;doneEl.textContent=done;feverBar.style.width=Math.min(100,fever)+'%';cfg.orders.forEach(k=>{const el=document.getElementById('order-'+k);if(el)el.classList.toggle('done',done>0 && score>0);});}
+function chooseType(){let pool=cfg.types.slice();if(Math.random()<.72)pool=pool.concat(cfg.orders,cfg.orders);return pool[Math.floor(Math.random()*pool.length)];}
+function spawnMeat(){if(meats.length>=cfg.max)return;const rect=arena.getBoundingClientRect(), W=rect.width, H=rect.height;const side=Math.floor(Math.random()*4);let x,y,vx,vy;if(side===0){x=-80;y=H*(.28+Math.random()*.55);vx=3.5+Math.random()*2.2;vy=-4-Math.random()*3;}else if(side===1){x=W+80;y=H*(.28+Math.random()*.55);vx=-3.5-Math.random()*2.2;vy=-4-Math.random()*3;}else if(side===2){x=W*(.15+Math.random()*.7);y=H+80;vx=(Math.random()-.5)*4;vy=-7-Math.random()*4;}else{x=W*(.15+Math.random()*.7);y=-80;vx=(Math.random()-.5)*4;vy=5+Math.random()*3;}vx*=cfg.speed;vy*=cfg.speed;const key=chooseType(), type=TYPES[key];const el=document.createElement('div');el.className='meat '+type.cls;el.textContent=type.icon;arena.appendChild(el);meats.push({id:Math.random(),key,type,el,x,y,vx,vy,rot:Math.random()*360,vr:(Math.random()-.5)*12,hit:false});}
+function loop(ts){if(!running)return;if(!last)last=ts;const dt=Math.min((ts-last)/16.7,2);last=ts;spawnAcc+=ts?dt*16.7:0;if(spawnAcc>=cfg.spawn){spawnMeat();spawnAcc=0;}meats.forEach(m=>{m.vy+=0.18*dt;m.x+=m.vx*dt;m.y+=m.vy*dt;m.rot+=m.vr*dt;m.el.style.transform=`translate(-50%,-50%) rotate(${m.rot}deg)`;m.el.style.left=m.x+'px';m.el.style.top=m.y+'px';});const W=arena.clientWidth,H=arena.clientHeight;meats=meats.filter(m=>{const out=m.y>H+120||m.x<-140||m.x>W+140||m.y<-140;if(out){m.el.remove();return false;}return true;});updateHud();requestAnimationFrame(loop);}
+function sliceLine(a,b){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);if(len<6)return;const line=document.createElement('div');line.className='sliceLine';line.style.left=a.x+'px';line.style.top=a.y+'px';line.style.width=len+'px';line.style.transform=`rotate(${Math.atan2(dy,dx)}rad)`;arena.appendChild(line);setTimeout(()=>line.remove(),120);}
+function distToSegment(p,a,b){const vx=b.x-a.x,vy=b.y-a.y,wx=p.x-a.x,wy=p.y-a.y,c1=vx*wx+vy*wy,c2=vx*vx+vy*vy,t=Math.max(0,Math.min(1,c1/(c2||1)));return Math.hypot(p.x-(a.x+t*vx),p.y-(a.y+t*vy));}
+function trySlice(a,b){const speed=Math.hypot(b.x-a.x,b.y-a.y);if(speed<8)return;sliceLine(a,b);let hits=0;meats.forEach(m=>{if(m.hit)return;const r=m.el.getBoundingClientRect(), ar=arena.getBoundingClientRect();const center={x:r.left-ar.left+r.width/2,y:r.top-ar.top+r.height/2};const radius=Math.max(r.width,r.height)*.52;if(distToSegment(center,a,b)<=radius){m.hit=true;hits++;handleHit(m,center);}});if(hits>1)float('MULTI x'+hits,b.x,b.y,'#ffd54a');}
+function handleHit(m,pos){m.el.remove();meats=meats.filter(x=>x!==m);if(navigator.vibrate)navigator.vibrate(18);if(m.type.bomb){combo=0;miss+=2;fever=Math.max(0,fever-30);shake();float('BOMB!',pos.x,pos.y,'#ff5b5b');if(miss>=5)finish();return;}if(m.type.bad){combo=0;miss++;score=Math.max(0,score-120);fever=Math.max(0,fever-18);float('LOSS',pos.x,pos.y,'#ff5b5b');if(miss>=5)finish();return;}combo++;maxCombo=Math.max(maxCombo,combo);let point=m.type.points+(combo*8);if(fever>=100)point*=2;score+=point;done++;fever=Math.min(100,fever+8+(combo>5?4:0));float(combo>=8?'EXCELLENT!':'SLICE!',pos.x,pos.y,combo>=8?'#ffd54a':'#fff');if(fever>=100){game.classList.add('fever');setTimeout(()=>game.classList.remove('fever'),1500);}if(done>=cfg.goal)finish();}
+function float(txt,x,y,color){const el=document.createElement('div');el.className='floatText';el.textContent=txt;el.style.left=x+'px';el.style.top=y+'px';el.style.color=color||'#fff';arena.appendChild(el);setTimeout(()=>el.remove(),700);}
+function shake(){game.classList.remove('shake');void game.offsetWidth;game.classList.add('shake');}
+function pointFrom(e){const r=arena.getBoundingClientRect();const p=e.touches?e.touches[0]:e;return {x:p.clientX-r.left,y:p.clientY-r.top,t:performance.now()};}
+function down(e){pointerActive=true;trail=[pointFrom(e)];hitStreakId++;}
+function move(e){if(!pointerActive)return;e.preventDefault();const p=pointFrom(e);const prev=trail[trail.length-1];if(prev){trySlice(prev,p);}trail.push(p);if(trail.length>8)trail.shift();}
+function up(){pointerActive=false;trail=[];}
+arena.addEventListener('pointerdown',down);arena.addEventListener('pointermove',move);window.addEventListener('pointerup',up);arena.addEventListener('touchstart',down,{passive:false});arena.addEventListener('touchmove',move,{passive:false});window.addEventListener('touchend',up);
+function finish(){if(!running)return;running=false;const stars=miss===0&&maxCombo>=10?3:miss<=2?2:1;try{ShinResult.complete('butcher',stars);}catch(e){overlay.style.display='flex';}}
+})();
+</script>
+</body>
+</html>
