@@ -14,3 +14,40 @@
 
 @media (max-height:760px){.top{padding-top:max(4px,env(safe-area-inset-top))!important}.panel,.card{padding:7px!important}h1,.title{font-size:22px!important;line-height:1.05!important;margin-top:0!important;margin-bottom:3px!important}.sub,.tip,.hint,.small{font-size:11px!important;line-height:1.2!important}select{height:34px!important;font-size:14px!important}.hud{gap:4px!important;margin-top:4px!important}.box,.pill{padding:3px!important;border-width:2px!important;border-radius:12px!important;font-size:11px!important}.box b,.pill b{font-size:14px!important}.box small{font-size:9px!important}.controls{bottom:max(6px,env(safe-area-inset-bottom))!important;gap:7px!important}.ctrl,.btn{height:58px!important;border-radius:18px!important;font-size:30px!important}.trash{font-size:17px!important}.start{height:40px!important;font-size:17px!important;margin-top:4px!important}.bottom{bottom:max(6px,env(safe-area-inset-bottom))!important}.barWrap{height:16px!important;padding:3px!important}.menu{max-height:126px!important;overflow-y:auto!important;gap:6px!important}.menu button{height:54px!important;font-size:20px!important}#shop{height:39vh!important}.yard{height:43vh!important}.board{min-height:230px!important}.content{padding-bottom:92px!important}}
 @media (max-height:660px){h1,.title{font-size:19px!important}.sub,.tip,.hint{display:none!important}.vendor{display:none!important}.hud{grid-template-columns:repeat(3,1fr)!important}.yard{height:38vh!important}#shop{height:35vh!important}.board{min-height:205px!important}.ctrl,.btn{height:50px!important;font-size:26px!important}.content{padding-bottom:78px!important}}
+
+/* v2.2 game-first cleanup: remove wasted space and prevent top HUD overlap */
+#game .hud{max-width:none!important;right:148px!important;display:grid!important;grid-template-columns:repeat(5,minmax(42px,1fr))!important;gap:3px!important}
+#game .chip{min-width:0!important;padding:3px 4px!important;font-size:10px!important;border-width:2px!important;border-radius:10px!important}
+#game .chip b{font-size:14px!important}
+#game .orders{top:84px!important;left:8px!important;right:8px!important;gap:3px!important;align-items:flex-start!important}
+#game .orderLabel{padding:3px 5px!important;font-size:11px!important;border-radius:10px!important}
+#game .tag{font-size:11px!important;padding:3px 5px!important;border-radius:10px!important;white-space:nowrap!important}
+#game .bottom{bottom:max(5px,env(safe-area-inset-bottom))!important}
+#game .barWrap{height:14px!important}
+#game .card{padding:14px!important;border-radius:20px!important;max-width:330px!important}
+#game .card h1{font-size:24px!important;margin-bottom:4px!important}
+#game .btn{height:40px!important;padding:4px!important;font-size:18px!important;margin-top:6px!important}
+
+#app>.nextLine{left:auto!important;right:8px!important;top:82px!important;width:174px!important;justify-content:flex-end!important;z-index:31!important}
+#app>.nextLine .nextBox{font-size:12px!important;padding:3px 6px!important;border-radius:10px!important}
+#app>.nextLine .mission{font-size:11px!important;padding:3px 5px!important;border-radius:10px!important;max-width:86px!important;overflow:hidden!important;white-space:nowrap!important}
+#app>.yard{top:108px!important;bottom:84px!important;height:auto!important}
+#app>.msg{display:none!important}
+#app>.controls{bottom:max(6px,env(safe-area-inset-bottom))!important;gap:7px!important}
+#app>.controls .btn{height:68px!important;font-size:32px!important;border-radius:20px!important}
+#app>.controls .trash{font-size:18px!important}
+#app .result{padding:14px!important;border-radius:20px!important;max-width:340px!important}
+#app .result h2{font-size:24px!important;margin:0 0 4px!important}
+#app .result p{font-size:16px!important;line-height:1.35!important;margin:6px 0!important}
+#app .result .start{height:40px!important;font-size:18px!important;margin-top:5px!important}
+
+#app>#shop{top:92px!important;bottom:88px!important;height:auto!important}
+#app>#shop .signboard{display:none!important}
+#app>#shop .counter{height:38px!important;line-height:30px!important;font-size:18px!important}
+#app>#shop .queueLine{bottom:38px!important}
+#app>#toast{top:84px!important;left:8px!important;right:148px!important;font-size:12px!important;padding:3px 5px!important;z-index:41!important}
+#app>.menu{bottom:max(6px,env(safe-area-inset-bottom))!important;gap:6px!important;max-height:none!important;overflow:visible!important}
+#app>.menu button{height:56px!important;font-size:21px!important;border-radius:17px!important}
+#app>.fx{z-index:42!important}
+
+@media(max-height:700px){#game .orders{top:76px!important}#game .tag{font-size:10px!important;padding:2px 4px!important}#app>.nextLine{top:76px!important;width:160px!important}#app>.yard{top:100px!important;bottom:74px!important}#app>.controls .btn{height:58px!important}#app>#shop{top:86px!important;bottom:78px!important}#app>.menu button{height:48px!important}#app>#toast{top:76px!important}}
