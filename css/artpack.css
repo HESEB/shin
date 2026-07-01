@@ -1,46 +1,70 @@
-/* v1.0 art pack: CSS sprite-style characters and objects without image files */
+/* v1.0 art pack scoped: prevents stage/theme classes from styling full screens */
 :root{--ap-line:#3b2214;--ap-shade:#0004;--ap-hi:#fff8}
 
-/* World map hero badge */
-.avatar{background:linear-gradient(#fff0c8,#ffca73)!important;overflow:visible!important}
-.avatar:before{content:""!important;position:absolute!important;left:12px!important;top:9px!important;width:26px!important;height:28px!important;border:3px solid var(--ap-line)!important;border-radius:50% 50% 44% 44%!important;background:linear-gradient(#ffd3a0,#e99c61)!important;box-shadow:inset 0 -4px #d27a43!important}
-.avatar:after{content:""!important;position:absolute!important;left:9px!important;top:2px!important;width:32px!important;height:18px!important;border:3px solid var(--ap-line)!important;border-radius:14px 14px 10px 10px!important;background:#fff!important;box-shadow:0 8px 0 -3px #fff, inset 0 -3px #ddd!important}
-.avatar .face{display:none!important}
+/* Hard reset for large game containers: never become oval/masked art objects */
+html,body,#app,#game,#shop,#arena,.board,.yard,.mapCard,.worldApp,.content,.screen,.field,.playArea,.shop,.farm,.sales{clip-path:none!important;-webkit-clip-path:none!important;mask-image:none!important;-webkit-mask-image:none!important}
+#app,#game,#shop,#arena,.board,.yard,.mapCard{border-radius:0!important}
+.mapCard{border-radius:30px!important}
+#shop,.board,.yard,#arena{overflow:hidden!important}
 
-/* Stage icon badge: richer icon treatment */
-.stageIcon{font-size:0!important;overflow:hidden!important}.stageIcon:before{display:block;font-size:28px;line-height:1;filter:drop-shadow(0 2px 0 #0003)}
-.stage:has(b)::after{pointer-events:none}.stageIcon:has(+ b){font-size:0!important}
-.stageIcon{position:absolute}.stageIcon:before{content:"⭐"}.stage:has(b)::before{content:""}
-.stage .stageIcon{background:radial-gradient(circle at 35% 25%,#fff,#ffe4a4)!important}
+/* World map hero badge only */
+.mapCard .avatar{background:linear-gradient(#fff0c8,#ffca73)!important;overflow:visible!important}
+.mapCard .avatar:before{content:""!important;position:absolute!important;left:12px!important;top:9px!important;width:26px!important;height:28px!important;border:3px solid var(--ap-line)!important;border-radius:50% 50% 44% 44%!important;background:linear-gradient(#ffd3a0,#e99c61)!important;box-shadow:inset 0 -4px #d27a43!important}
+.mapCard .avatar:after{content:""!important;position:absolute!important;left:9px!important;top:2px!important;width:32px!important;height:18px!important;border:3px solid var(--ap-line)!important;border-radius:14px 14px 10px 10px!important;background:#fff!important;box-shadow:0 8px 0 -3px #fff, inset 0 -3px #ddd!important}
+.mapCard .avatar .face{display:none!important}
 
-/* Fallback by first visible emoji text, browser keeps inner text hidden but node receives classless badge */
-.stage .stageIcon:nth-child(1)::before{content:attr(data-art)}
+/* World map stage icon badge only */
+.mapCard .stageIcon{font-size:0!important;overflow:hidden!important;position:absolute!important}
+.mapCard .stageIcon:before{content:"⭐";display:block;font-size:28px;line-height:1;filter:drop-shadow(0 2px 0 #0003)}
+.mapCard .stage .stageIcon{background:radial-gradient(circle at 35% 25%,#fff,#ffe4a4)!important}
+.mapCard .stage b{letter-spacing:-.8px}.mapCard .stage small{letter-spacing:-.35px}.mapCard:after{opacity:.68!important;text-shadow:0 3px 0 #0002}
 
-/* Common game sprites - override emoji blocks into sticker-like pieces where class names exist */
-.player{background:radial-gradient(circle at 50% 30%,#ffe1ad 0 34%,#2d91ff 35% 66%,#1a5ac2 67%)!important;border:3px solid var(--ap-line)!important;border-radius:50% 50% 44% 44%!important;box-shadow:0 5px 0 var(--ap-shade)!important;font-size:0!important}
-.player:before{content:"";position:absolute;left:50%;top:7%;width:54%;height:28%;transform:translateX(-50%);border:3px solid var(--ap-line);border-radius:14px;background:#fff;box-shadow:inset 0 -3px #ddd}.player:after{content:"";position:absolute;left:34%;top:35%;width:7px;height:7px;background:#2b160c;border-radius:50%;box-shadow:16px 0 #2b160c,8px 10px 0 -2px #a34528}
-.enemy{background:linear-gradient(#ffe073,#f0a224)!important;border:3px solid var(--ap-line)!important;border-radius:55% 55% 48% 48%!important;font-size:0!important;box-shadow:0 5px 0 var(--ap-shade)!important}.enemy:before{content:"";position:absolute;left:18%;top:22%;width:8px;height:8px;background:#2b160c;border-radius:50%;box-shadow:20px 0 #2b160c}.enemy:after{content:"";position:absolute;right:-5px;top:28%;width:12px;height:12px;border:3px solid var(--ap-line);border-left:0;border-radius:0 12px 12px 0;background:#f4b735}
-.boss{background:linear-gradient(#7b35d8,#301044)!important;border:4px solid var(--ap-line)!important;border-radius:28px 28px 18px 18px!important;font-size:0!important;box-shadow:0 8px 0 var(--ap-shade),0 0 18px #7d35ff88!important}.boss:before{content:"";position:absolute;left:16%;top:-14%;width:68%;height:28%;background:linear-gradient(#ffd54a,#ff8b00);clip-path:polygon(0 100%,15% 20%,35% 100%,50% 0,65% 100%,85% 20%,100% 100%);border-bottom:3px solid var(--ap-line)}.boss:after{content:"";position:absolute;left:24%;top:38%;width:10px;height:10px;background:#ffef61;border-radius:50%;box-shadow:30px 0 #ffef61,15px 16px 0 -3px #fff}
-.customer{background:linear-gradient(#fff,#ffe0a4)!important;border:3px solid var(--ap-line)!important;border-radius:50% 50% 38% 38%!important;font-size:0!important;box-shadow:0 5px 0 var(--ap-shade)!important}.customer:before{content:"";position:absolute;left:26%;top:26%;width:7px;height:7px;background:#2b160c;border-radius:50%;box-shadow:18px 0 #2b160c}.customer:after{content:"";position:absolute;left:29%;bottom:12%;width:42%;height:8px;border-radius:0 0 12px 12px;background:#ff7a60}
+/* Scoped game sprites - only inside play surfaces, never on root/theme classes */
+#arena .player,#game .player,#app .player{background:radial-gradient(circle at 50% 30%,#ffe1ad 0 34%,#2d91ff 35% 66%,#1a5ac2 67%)!important;border:3px solid var(--ap-line)!important;border-radius:50% 50% 44% 44%!important;box-shadow:0 5px 0 var(--ap-shade)!important;font-size:0!important}
+#arena .player:before,#game .player:before,#app .player:before{content:"";position:absolute;left:50%;top:7%;width:54%;height:28%;transform:translateX(-50%);border:3px solid var(--ap-line);border-radius:14px;background:#fff;box-shadow:inset 0 -3px #ddd}
+#arena .player:after,#game .player:after,#app .player:after{content:"";position:absolute;left:34%;top:35%;width:7px;height:7px;background:#2b160c;border-radius:50%;box-shadow:16px 0 #2b160c,8px 10px 0 -2px #a34528}
+
+#arena .enemy,#game .enemy,#app .enemy{background:linear-gradient(#ffe073,#f0a224)!important;border:3px solid var(--ap-line)!important;border-radius:55% 55% 48% 48%!important;font-size:0!important;box-shadow:0 5px 0 var(--ap-shade)!important}
+#arena .enemy:before,#game .enemy:before,#app .enemy:before{content:"";position:absolute;left:18%;top:22%;width:8px;height:8px;background:#2b160c;border-radius:50%;box-shadow:20px 0 #2b160c}
+#arena .enemy:after,#game .enemy:after,#app .enemy:after{content:"";position:absolute;right:-5px;top:28%;width:12px;height:12px;border:3px solid var(--ap-line);border-left:0;border-radius:0 12px 12px 0;background:#f4b735}
+
+#arena .boss,#game .boss,#app .boss{background:linear-gradient(#7b35d8,#301044)!important;border:4px solid var(--ap-line)!important;border-radius:28px 28px 18px 18px!important;font-size:0!important;box-shadow:0 8px 0 var(--ap-shade),0 0 18px #7d35ff88!important}
+#arena .boss:before,#game .boss:before,#app .boss:before{content:"";position:absolute;left:16%;top:-14%;width:68%;height:28%;background:linear-gradient(#ffd54a,#ff8b00);clip-path:polygon(0 100%,15% 20%,35% 100%,50% 0,65% 100%,85% 20%,100% 100%);border-bottom:3px solid var(--ap-line)}
+#arena .boss:after,#game .boss:after,#app .boss:after{content:"";position:absolute;left:24%;top:38%;width:10px;height:10px;background:#ffef61;border-radius:50%;box-shadow:30px 0 #ffef61,15px 16px 0 -3px #fff}
+
+#shop .customer,#app .customer.unit{background:linear-gradient(#fff,#ffe0a4)!important;border:3px solid var(--ap-line)!important;border-radius:50% 50% 38% 38%!important;font-size:0!important;box-shadow:0 5px 0 var(--ap-shade)!important}
+#shop .customer:before,#app .customer.unit:before{content:"";position:absolute;left:26%;top:26%;width:7px;height:7px;background:#2b160c;border-radius:50%;box-shadow:18px 0 #2b160c}
+#shop .customer:after,#app .customer.unit:after{content:"";position:absolute;left:29%;bottom:12%;width:42%;height:8px;border-radius:0 0 12px 12px;background:#ff7a60}
 
 /* Packing boxes */
-.pkg,.boxItem,.crate{background:linear-gradient(135deg,#ffca6a,#c97924)!important;border:3px solid var(--ap-line)!important;border-radius:12px!important;box-shadow:0 5px 0 var(--ap-shade),inset 0 0 0 3px #fff4!important;font-size:0!important}.pkg:before,.boxItem:before,.crate:before{content:"";position:absolute;left:8%;right:8%;top:45%;height:3px;background:#7b4016}.pkg:after,.boxItem:after,.crate:after{content:"";position:absolute;top:8%;bottom:8%;left:48%;width:3px;background:#7b4016}
-.block,.obstacle{background:linear-gradient(#7b6b5b,#4b3427)!important;border:3px solid var(--ap-line)!important;border-radius:12px!important;box-shadow:0 5px 0 var(--ap-shade)!important;font-size:0!important}.block:after,.obstacle:after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ffdf91;font-size:20px;font-weight:1000;text-shadow:0 2px #000}
+#app .pkg,#app .boxItem,#app .crate,#game .pkg,#game .boxItem,#game .crate{background:linear-gradient(135deg,#ffca6a,#c97924)!important;border:3px solid var(--ap-line)!important;border-radius:12px!important;box-shadow:0 5px 0 var(--ap-shade),inset 0 0 0 3px #fff4!important;font-size:0!important}
+#app .pkg:before,#app .boxItem:before,#app .crate:before,#game .pkg:before,#game .boxItem:before,#game .crate:before{content:"";position:absolute;left:8%;right:8%;top:45%;height:3px;background:#7b4016}
+#app .pkg:after,#app .boxItem:after,#app .crate:after,#game .pkg:after,#game .boxItem:after,#game .crate:after{content:"";position:absolute;top:8%;bottom:8%;left:48%;width:3px;background:#7b4016}
+#app .block,#app .obstacle,#game .block,#game .obstacle{background:linear-gradient(#7b6b5b,#4b3427)!important;border:3px solid var(--ap-line)!important;border-radius:12px!important;box-shadow:0 5px 0 var(--ap-shade)!important;font-size:0!important}
+#app .block:after,#app .obstacle:after,#game .block:after,#game .obstacle:after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ffdf91;font-size:20px;font-weight:1000;text-shadow:0 2px #000}
 
 /* Butcher meat pieces */
-.meat{font-size:0!important;border:3px solid var(--ap-line)!important;border-radius:50% 45% 55% 45%!important;background:linear-gradient(135deg,#ff8c8c,#b61f2f)!important;box-shadow:0 5px 0 var(--ap-shade),inset 0 0 0 4px #ffffff33!important}.meat:before{content:"";position:absolute;left:28%;top:28%;width:32%;height:28%;border-radius:50%;background:#ffd5c8;border:2px solid #fff8}.meat:after{content:"";position:absolute;right:12%;bottom:18%;width:16%;height:16%;border-radius:50%;background:#fff5}
-.bad,.trap{background:linear-gradient(135deg,#727272,#242424)!important}.bad:before,.trap:before{background:#9dff9d!important}
-.gold{background:linear-gradient(135deg,#ffe76a,#ff9b00)!important}
+#game .meat,#app .meat{font-size:0!important;border:3px solid var(--ap-line)!important;border-radius:50% 45% 55% 45%!important;background:linear-gradient(135deg,#ff8c8c,#b61f2f)!important;box-shadow:0 5px 0 var(--ap-shade),inset 0 0 0 4px #ffffff33!important}
+#game .meat:before,#app .meat:before{content:"";position:absolute;left:28%;top:28%;width:32%;height:28%;border-radius:50%;background:#ffd5c8;border:2px solid #fff8}
+#game .meat:after,#app .meat:after{content:"";position:absolute;right:12%;bottom:18%;width:16%;height:16%;border-radius:50%;background:#fff5}
+#game .bad,#game .trap,#app .bad,#app .trap{background:linear-gradient(135deg,#727272,#242424)!important}
+#game .bad:before,#game .trap:before,#app .bad:before,#app .trap:before{background:#9dff9d!important}
+#game .gold,#app .gold{background:linear-gradient(135deg,#ffe76a,#ff9b00)!important}
 
-/* Farm animals */
-.animal,.chicken,.pig,.cow{border:3px solid var(--ap-line)!important;box-shadow:0 4px 0 var(--ap-shade)!important;font-size:0!important}.chicken{background:linear-gradient(#fff6b3,#ffd04a)!important;border-radius:55% 55% 48% 48%!important}.chicken:before{content:"";position:absolute;right:-6px;top:26%;width:12px;height:10px;background:#ff7b22;clip-path:polygon(0 0,100% 50%,0 100%)}.chicken:after{content:"";position:absolute;left:30%;top:30%;width:6px;height:6px;background:#2b160c;border-radius:50%;box-shadow:13px 0 #2b160c}
-.pig{background:linear-gradient(#ffb8c8,#ef7795)!important;border-radius:50% 50% 44% 44%!important}.pig:before{content:"";position:absolute;left:34%;top:42%;width:24%;height:16%;border:3px solid var(--ap-line);border-radius:50%;background:#ff91a8}.pig:after{content:"";position:absolute;left:28%;top:28%;width:6px;height:6px;background:#2b160c;border-radius:50%;box-shadow:18px 0 #2b160c}
-.cow{background:linear-gradient(#fff,#ddd)!important;border-radius:45% 50% 44% 44%!important}.cow:before{content:"";position:absolute;left:10%;top:20%;width:24%;height:20%;background:#4b2d1c;border-radius:50%;box-shadow:30px 12px #4b2d1c}.cow:after{content:"";position:absolute;left:28%;top:32%;width:6px;height:6px;background:#2b160c;border-radius:50%;box-shadow:18px 0 #2b160c}
+/* Farm animals: require .animal + type class, so kingdom/theme .chicken/.pig/.cow never styles the screen */
+#app .animal,#game .animal{border:3px solid var(--ap-line)!important;box-shadow:0 4px 0 var(--ap-shade)!important;font-size:0!important}
+#app .animal.chicken,#game .animal.chicken{background:linear-gradient(#fff6b3,#ffd04a)!important;border-radius:55% 55% 48% 48%!important}
+#app .animal.chicken:before,#game .animal.chicken:before{content:"";position:absolute;right:-6px;top:26%;width:12px;height:10px;background:#ff7b22;clip-path:polygon(0 0,100% 50%,0 100%)}
+#app .animal.chicken:after,#game .animal.chicken:after{content:"";position:absolute;left:30%;top:30%;width:6px;height:6px;background:#2b160c;border-radius:50%;box-shadow:13px 0 #2b160c}
+#app .animal.pig,#game .animal.pig{background:linear-gradient(#ffb8c8,#ef7795)!important;border-radius:50% 50% 44% 44%!important}
+#app .animal.pig:before,#game .animal.pig:before{content:"";position:absolute;left:34%;top:42%;width:24%;height:16%;border:3px solid var(--ap-line);border-radius:50%;background:#ff91a8}
+#app .animal.pig:after,#game .animal.pig:after{content:"";position:absolute;left:28%;top:28%;width:6px;height:6px;background:#2b160c;border-radius:50%;box-shadow:18px 0 #2b160c}
+#app .animal.cow,#game .animal.cow{background:linear-gradient(#fff,#ddd)!important;border-radius:45% 50% 44% 44%!important}
+#app .animal.cow:before,#game .animal.cow:before{content:"";position:absolute;left:10%;top:20%;width:24%;height:20%;background:#4b2d1c;border-radius:50%;box-shadow:30px 12px #4b2d1c}
+#app .animal.cow:after,#game .animal.cow:after{content:"";position:absolute;left:28%;top:32%;width:6px;height:6px;background:#2b160c;border-radius:50%;box-shadow:18px 0 #2b160c}
 
 /* Sales coins / feedback */
-.coin,.money{background:linear-gradient(#fff36a,#ffb300)!important;border:3px solid #8a5600!important;border-radius:50%!important;box-shadow:0 4px 0 #0004!important;color:#8a5600!important;font-weight:1000!important}.coin:after,.money:after{content:"₩";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+#app .coin,#app .money,#game .coin,#game .money{background:linear-gradient(#fff36a,#ffb300)!important;border:3px solid #8a5600!important;border-radius:50%!important;box-shadow:0 4px 0 #0004!important;color:#8a5600!important;font-weight:1000!important}
+#app .coin:after,#app .money:after,#game .coin:after,#game .money:after{content:"₩";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px}
 
-/* World detail stickers */
-.mapCard:after{opacity:.68!important;text-shadow:0 3px 0 #0002}.stage b{letter-spacing:-.8px}.stage small{letter-spacing:-.35px}
-
-@media(max-height:700px){.player:before,.player:after,.enemy:before,.enemy:after,.boss:before,.boss:after,.customer:before,.customer:after{transform:scale(.9)}}
+@media(max-height:700px){#arena .player:before,#arena .player:after,#game .player:before,#game .player:after,#app .player:before,#app .player:after,#arena .enemy:before,#arena .enemy:after,#game .enemy:before,#game .enemy:after,#app .enemy:before,#app .enemy:after,#arena .boss:before,#arena .boss:after,#game .boss:before,#game .boss:after,#app .boss:before,#app .boss:after,#shop .customer:before,#shop .customer:after{transform:scale(.9)}}
