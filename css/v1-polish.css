@@ -1,0 +1,41 @@
+/* v1.0 release candidate polish: shared mobile-game UI skin */
+:root{--ink:#3b2413;--line:#4b2d1c;--cream:#fff8e8;--gold:#ffbd37;--orange:#ff8b00;--blue:#2d91ff;--green:#38c172;--shadow:#8b4a12;--soft:#ffffff66}
+html,body{font-family:Arial,'Noto Sans KR',sans-serif;background:#10151f;color:var(--ink)}
+button,select{font-family:inherit}
+button{cursor:pointer;touch-action:manipulation}
+button:active{transform:translateY(3px);filter:brightness(.98)}
+
+/* chunky game buttons */
+.shin-btn,.stageBtn,.save-btn,.saveBtn,.kingBtn,.start,.btn,.skill,.up,.ctrl,.menu button,.controls .btn,.storyBtn{border-color:var(--line)!important;text-shadow:0 1px 0 #0002;letter-spacing:-.5px}
+.shin-btn,.stageBtn,.saveBtn,.kingBtn,.start,.btn,.skill,.storyBtn{background:linear-gradient(#ffe486,#ff9b20)!important;box-shadow:0 5px 0 var(--shadow),inset 0 0 0 3px #ffffff55!important;color:#fff!important}
+.shin-btn.blue,.btn.blue,.dev button{background:linear-gradient(#67c9ff,#2474df)!important;box-shadow:0 5px 0 #0d4b99,inset 0 0 0 3px #ffffff44!important;color:#fff!important}
+select{background:linear-gradient(#fffdf4,#ffe9ba)!important;border-color:var(--line)!important;box-shadow:0 3px 0 #8b4a12!important;color:var(--ink)!important;font-weight:1000!important}
+
+/* shared HUD look */
+.hud .chip,.chip,.stat,.nextBox,.mission,.tag,.orderLabel{background:linear-gradient(#fffdf4,#ffe9ba)!important;border-color:var(--line)!important;color:var(--ink)!important;box-shadow:0 3px 0 #0003,inset 0 0 0 2px #ffffff55!important}
+.bar,.bossBar,.shipBar,.salesBar,.barWrap,.progress{background:#4b2d1c!important;box-shadow:inset 0 2px 0 #0004!important}
+.fill,.shipFill,.salesFill,.bar,.progress div{filter:saturate(1.12)}
+
+/* result and story cards */
+.overlay,.centerOverlay,.story{backdrop-filter:blur(2px)}
+.card,.result,.storyCard,.popup-card,.topCard,.kingdom,.dev{box-shadow:0 8px 0 #0004,inset 0 0 0 4px #ffffff55!important;background:linear-gradient(#fffdf4,#ffe8b1)!important;border-color:var(--line)!important}
+.stars,.starLine{filter:drop-shadow(0 2px 0 #8a5600)}
+
+/* icon badges and objects */
+.icon,.stageIcon,.speaker,.avatar,.saveBtn,.kingBtn{box-shadow:0 4px 0 #8b4a12,inset 0 0 0 3px #ffffff55!important}
+.stageIcon,.speaker{background:radial-gradient(circle at 35% 25%,#fff,#ffe3a0)!important}
+.stage.done .stageIcon{background:radial-gradient(circle at 35% 25%,#fff,#d8ffd0)!important}
+.stage.lock .stageIcon{background:radial-gradient(circle at 35% 25%,#fff,#ddd)!important}
+
+/* mobile game surface */
+#game,#app{box-shadow:0 0 0 9999px #111}
+#arena{background-image:radial-gradient(circle at 20% 20%,#ffffff18 0 2%,transparent 5%),radial-gradient(circle at 80% 30%,#ffffff12 0 2%,transparent 6%)}
+.floor,.dock{box-shadow:inset 0 5px 0 #0003!important}
+
+/* touch clarity */
+.joy{backdrop-filter:blur(1px)}
+.stick{background:linear-gradient(#fff,#dbefff)!important}
+.warn,.blockCue{pointer-events:none}
+
+/* small screen cleanup */
+@media(max-height:700px){.card,.result,.storyCard{border-radius:18px!important}.start,.btn,.skill{min-height:38px!important}.hint{font-size:11px!important}.topCard{padding:9px!important}.kingdom,.dev{padding:6px!important}}
