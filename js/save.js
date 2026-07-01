@@ -28,3 +28,4 @@ function devSetStars(stageId,stars){const d=loadWorldSave();d.stars[stageId]=Mat
 function devUnlockAll(){const d=loadWorldSave();SHIN_STAGE_FLOW.forEach(s=>d.unlocked[s.id]=true);d.kingdoms.pig=true;d.kingdoms.cow=true;d.kingdoms.demon=true;saveWorld(d)}
 function addResearch(type){const d=loadWorldSave();const lv=d.research[type]||0;const cost=20+lv*20;if(d.points<cost)return false;d.points-=cost;d.research[type]=lv+1;saveWorld(d);return true}
 window.STAGE_FLOW=SHIN_STAGE_FLOW;
+(function(){if(window.__shinAudioLoader)return;window.__shinAudioLoader=true;function load(){var s=document.createElement('script');var base=location.pathname.indexOf('/games/')>-1?'../../':'./';s.src=base+'js/audio.js?v=1';s.defer=true;document.head.appendChild(s)}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load);else load()})();
