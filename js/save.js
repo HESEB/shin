@@ -1,12 +1,12 @@
 const SHIN_SAVE_SLOT_KEY="shin_active_slot_v1";
 const SHIN_SAVE_PREFIX="shin_save_slot_";
 const SHIN_STAGE_FLOW=[
-  {id:"farm",label:"농장출하",icon:"🐔",url:"./games/farm/index.html"},
-  {id:"bid",label:"입찰전쟁",icon:"💰",url:"./games/bid/index.html"},
-  {id:"butcher",label:"도축정형",icon:"🔪",url:"./games/butcher/index.html"},
-  {id:"packing",label:"출하패킹",icon:"📦",url:"./games/packing/index.html"},
-  {id:"sales",label:"영업판매",icon:"🏪",url:"./games/sales/index.html"},
-  {id:"boss",label:"병아리킹",icon:"👑",url:"./games/boss/index.html"}
+  {id:"farm",label:"출하",icon:"🐔",url:"./games/farm/index.html"},
+  {id:"bid",label:"입찰",icon:"💰",url:"./games/bid/index.html"},
+  {id:"butcher",label:"도축",icon:"🔪",url:"./games/butcher/index.html"},
+  {id:"packing",label:"물류",icon:"📦",url:"./games/packing/index.html"},
+  {id:"sales",label:"판매",icon:"🏪",url:"./games/sales/index.html"},
+  {id:"boss",label:"보스전",icon:"👑",url:"./games/boss/index.html"}
 ];
 const DEFAULT_SAVE={slot:1,devMode:false,coins:12450,gems:1250,points:0,stars:{farm:0,bid:0,butcher:0,packing:0,sales:0,boss:0},unlocked:{farm:true,bid:false,butcher:false,packing:false,sales:false,boss:false},kingdoms:{chicken:true,pig:false,cow:false,demon:false},research:{atk:0,def:0,speed:0,bomb:0}};
 function activeSlot(){return Number(localStorage.getItem(SHIN_SAVE_SLOT_KEY)||"1")}
