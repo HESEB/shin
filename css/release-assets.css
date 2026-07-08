@@ -1,0 +1,26 @@
+/* Google Play release art mapping v1 */
+.bossChicken{background-image:url('../assets/bosses/chicken_king.svg')!important}
+.bossPig{background-image:url('../assets/bosses/pig_king.svg')!important}
+.bossCow{background-image:url('../assets/bosses/bull_general.svg')!important}
+.bossDemon{background-image:url('../assets/bosses/purchase_demon.svg')!important}
+.bossCard{background-size:cover!important;background-position:center!important}
+.bossArt{background-image:url('../assets/bosses/chicken_king.svg')!important;background-size:cover!important;background-position:center!important}
+.campaign.pig .bossArt,.pig .bossArt{background-image:url('../assets/bosses/pig_king.svg')!important}
+.campaign.cow .bossArt,.cow .bossArt{background-image:url('../assets/bosses/bull_general.svg')!important}
+.campaign.demon .bossArt,.demon .bossArt{background-image:url('../assets/bosses/purchase_demon.svg')!important}
+.speaker.bossChicken,.speaker.chickenBoss{background-image:url('../assets/bosses/chicken_king.svg')!important}
+.speaker.bossPig,.speaker.pigBoss{background-image:url('../assets/bosses/pig_king.svg')!important}
+.speaker.bossCow,.speaker.cowBoss{background-image:url('../assets/bosses/bull_general.svg')!important}
+.speaker.bossDemon,.speaker.demonBoss{background-image:url('../assets/bosses/purchase_demon.svg')!important}
+.release-boss-icon{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+.release-boss-icon.chicken{background-image:url('../assets/bosses/chicken_king.svg')!important}
+.release-boss-icon.pig{background-image:url('../assets/bosses/pig_king.svg')!important}
+.release-boss-icon.cow{background-image:url('../assets/bosses/bull_general.svg')!important}
+.release-boss-icon.demon{background-image:url('../assets/bosses/purchase_demon.svg')!important}
+/* Boss game screen: replace emoji-like text with image blocks when classes are present */
+#arena .boss{background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;color:transparent!important;text-shadow:none!important;font-size:0!important;width:116px!important;height:116px!important}
+#arena .boss.chicken,#arena .boss.bossChicken{background-image:url('../assets/bosses/chicken_king.svg')!important}
+#arena .boss.pig,#arena .boss.bossPig{background-image:url('../assets/bosses/pig_king.svg')!important}
+#arena .boss.cow,#arena .boss.bossCow{background-image:url('../assets/bosses/bull_general.svg')!important}
+#arena .boss.demon,#arena .boss.bossDemon{background-image:url('../assets/bosses/purchase_demon.svg')!important}
+.bossLabelFix::after{content:attr(data-boss-name)}
