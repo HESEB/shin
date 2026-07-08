@@ -25,14 +25,14 @@
     if(!ready())return setTimeout(patchBoss,120);
     window.showUpgrade=function(){
       overlay.style.display='flex';
-      overlay.innerHTML='<div class="card"><h1>LEVEL UP</h1><div class="upgrid"><button class="up" onclick="upgrade(\'rapid\')">⚡ 연사속도 +20%</button><button class="up" onclick="upgrade(\'multi\')">🔪 발사갯수 +1</button><button class="up" onclick="upgrade(\'def\')">🛡 방어력 +2</button></div></div>';
+      overlay.innerHTML='<div class="card"><h1>LEVEL UP</h1><div class="upgrid"><button class="up" onclick="upgrade(\'weapon\')">🛠 무기강화<br><small>발사갯수 +1 / 속도 +15%</small></button><button class="up" onclick="upgrade(\'atk\')">⚔ 공격력 +15%</button><button class="up" onclick="upgrade(\'def\')">🛡 방어력 +2</button></div></div>';
     };
     window.upgrade=function(t){
+      if(t==='weapon'||t==='multi'){stats.shots++;stats.spd+=.15;stats.weapon=stats.shots>=4?'⚙️':stats.shots>=3?'🪚':'🔪'}
       if(t==='rapid')stats.spd+=.22;
-      if(t==='multi'){stats.shots++;stats.spd+=.08;stats.weapon=stats.shots>=4?'⚙️':stats.shots>=3?'🪚':'🔪'}
+      if(t==='atk')stats.atk=Math.round(stats.atk*1.15);
       if(t==='def')stats.def+=2;
-      if(t==='atk')stats.spd+=.18;
-      overlay.style.display='none';upgradePause=false;last=0;pop('무기 강화 완료!');requestAnimationFrame(loop);
+      overlay.style.display='none';upgradePause=false;last=0;pop(t==='weapon'?'무기강화 완료!':'업그레이드 완료!');requestAnimationFrame(loop);
     };
     window.end=function(clear){
       run=false;
@@ -44,7 +44,7 @@
       }
       const nextLabel=clear&&nw?('다음 왕국으로: '+({pig:'돈육왕국',cow:'우육왕국',demon:'마왕성'}[nw]||'월드맵')):'월드맵';
       overlay.style.display='flex';
-      overlay.innerHTML='<div class="card"><h1>'+(clear?'🎉 승리!':'💀 패배')+'</h1><div class="stars">'+'★'.repeat(stars)+'☆'.repeat(3-stars)+'</div><p>단계: '+stage.selectedOptions[0].text+'<br>레벨 '+stats.lv+' · 처치 '+stats.kill+'<br>발사 '+stats.shots+'개 · 속도 '+stats.spd.toFixed(1)+'</p><button class="start" id="goNext">'+nextLabel+'</button><button class="start" onclick="startGame()">다시 전투</button></div>';
+      overlay.innerHTML='<div class="card"><h1>'+(clear?'🎉 승리!':'💀 패배')+'</h1><div class="stars">'+'★'.repeat(stars)+'☆'.repeat(3-stars)+'</div><p>단계: '+stage.selectedOptions[0].text+'<br>레벨 '+stats.lv+' · 처치 '+stats.kill+'<br>공격 '+stats.atk+' · 발사 '+stats.shots+'개 · 속도 '+stats.spd.toFixed(1)+'</p><button class="start" id="goNext">'+nextLabel+'</button><button class="start" onclick="startGame()">다시 전투</button></div>';
       document.getElementById('goNext').onclick=function(){location.href='../../index.html'};
     };
   }
