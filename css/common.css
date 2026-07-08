@@ -4,6 +4,7 @@
 @import url("./v1-polish.css");
 @import url("./artpack.css");
 @import url("./artboard-assets.css");
+@import url("./release-assets.css");
 
 .map{background:linear-gradient(#dff7ff,#b8e982);border:5px solid #4b2d1c;border-radius:28px;padding:18px 12px;box-shadow:0 7px 0 #9a5b17;min-height:500px}
 .node{display:grid;grid-template-columns:70px 1fr 70px;gap:8px;align-items:center;margin-bottom:14px}
